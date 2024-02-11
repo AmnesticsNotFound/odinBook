@@ -1,0 +1,56 @@
+extends layout
+block append head 
+    link(rel='stylesheet', href='/usersList.css')
+block append content
+    body
+        div(class="centerDiv")
+            h1()="Users"
+            div(class="userDivs")
+        
+        script(src="/public/javascripts/usersLoader.js")
+        script( src= "https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js").
+        script(type = "text/javascript").
+            let users = !{JSON.stringify(users)};
+            let user = !{JSON.stringify(user)};
+            loadUsers(users,user);
+            let follows = document.querySelectorAll(".followButtons");
+
+            follows.forEach((follow) => {
+                if(follow.innerText == "Follow" || follow.innerText == "Unfollow") {
+                    follow.addEventListener("click", () => {
+                        console.log("hi");
+                        if(follow.innerText == "Follow") {
+                            axios({
+                                method:"post",
+                                data: {
+                                //receiver:receiver,
+                                //user:req.user,
+                                followReceiver: follow.value
+                            },
+                            withCredentials:false,
+                            url: "http://localhost:3000/users/updatePending",
+                        }).then((res) => {
+                            console.log("success");
+                            location.reload();
+                        })
+                        }
+
+                        if(follow.innerText == "Unfollow") {
+                            axios({
+                                method:"post",
+                                data: {
+                                //receiver:receiver,
+                                //user:req.user,
+                                followReceiver: follow.value
+                            },
+                            withCredentials:false,
+                            url: "http://localhost:3000/users/removeFollow",
+                        }).then((res) => {
+                            console.log("success");
+                            location.reload();
+                        })
+                    }
+                }
+            )}
+            })
+            

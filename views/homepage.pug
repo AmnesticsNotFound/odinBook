@@ -1,0 +1,40 @@
+extends layout
+block append head
+    link(rel='stylesheet', href='/homepage.css')
+block append content
+    
+    body
+        
+        div(class="header")
+            h1(class="pageTitle")="🌎 Posts from around the globe 🌎"
+            //div(class = "postsBox")
+                
+        
+        script(src="/public/javascripts/postLoader.js")
+        script( src= "https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js").
+        script(type = "text/javascript").
+            let posts = !{JSON.stringify(posts)};
+            loadPosts(posts);
+            addPostListeners();
+            let likes = document.querySelectorAll(".likes");
+            console.log(likes);
+
+            likes.forEach((like)=> {
+                
+                like.addEventListener("click", () => {
+                    //console.log(like.value)
+                    axios({
+                        method:"post",
+                        data: {
+                        //receiver:receiver,
+                        origin:"homepage",
+                        },
+                        withCredentials:false,
+                        url: `http://localhost:3000/posts/updateLikes/${like.value}`,
+                    }).then((res) => {
+                        console.log("success");
+                        location.reload();
+                    })
+                })
+            })
+

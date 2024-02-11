@@ -1,0 +1,42 @@
+
+.header {
+    display:flex;
+    flex-direction:column;
+    border-left-style:solid;
+    border-right-style:solid;
+    margin-left:25vw;
+    margin-right:25vw;
+    align-items:center;
+    
+}
+.postMain {
+    display:flex;
+    gap:10px;
+    width:400px;
+    
+}
+
+.likesDiv {
+   display:flex;
+   flex-direction: column;
+   align-items:center;
+   justify-content: center;
+   padding:0px;
+}
+.likes {
+    
+    width:30px;
+    height:30px;
+    content:url("/thumbs.png");   
+}
+
+.likesDiv h3 {
+    
+    margin:0px;
+}
+
+.posts {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}

@@ -1,0 +1,85 @@
+extends layout
+block append head 
+    link(rel='stylesheet', href='/inbox.css')
+block append content
+    body 
+        div(class="mainDiv")
+            h1="Inbox"
+            h2="Follow Requests"
+            div(class="follReqBox")
+
+    script(src="/public/javascripts/postLoader.js")
+    script( src= "https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js").
+    script(type = "text/javascript").
+        let user = !{JSON.stringify(user)};
+        let mainDiv = document.querySelector(".follReqBox");
+        //console.log(user.pendingList);
+        for(let i = 0; i < user.pendingList.length; ++i) {
+            let request = document.createElement("div");
+            let userLink = document.createElement("a");
+            let img = document.createElement("img");
+            let userInfoDiv = document.createElement("div");
+            //adding value and classes
+            
+            request.classList.add("request");
+            userInfoDiv.classList.add("userInfoDiv");
+
+            //console.log(user.pendingList[i].username);
+            img.src = user.pendingList[i].img;
+            userLink.innerText = user.pendingList[i].username;
+            userLink.href = `http://localhost:3000/users/profile/${user.pendingList[i]._id}`;
+
+            let accept = document.createElement("img");
+            let decline = document.createElement("img");
+
+            accept.classList.add("reqButton");
+            accept.classList.add("accept");
+            accept.src="/checkmark.png";
+            accept.value = user.pendingList[i]._id;
+            
+
+            decline.classList.add("reqButton");
+            decline.classList.add("decline");
+            decline.src="/x.png";
+            decline.value = user.pendingList[i]._id;
+            
+            userInfoDiv.append(img);
+            userInfoDiv.append(userLink);
+
+            request.append(userInfoDiv);
+            request.append(accept);
+            request.append(decline);
+
+            mainDiv.append(request);
+
+        }
+
+        let reqButtons = document.querySelectorAll(".reqButton");
+
+        reqButtons.forEach((button)=> {
+            let type;
+            if (button.classList.contains("accept")) {
+                type = "accept";
+            }
+            else {
+                type = "reject";
+            }
+            //console.log(type);
+            button.addEventListener("click", ()=> {
+                axios({
+                        method:"post",
+                        data: {
+                        //receiver:receiver,
+                        //origin:"homepage",
+                        pendUser:button.value,
+                        type:type,
+
+                        },
+                        withCredentials:false,
+                        url: 'http://localhost:3000/users/updateFollow',
+                    }).then((res) => {
+                        console.log("success");
+                        location.reload();
+                    })
+            })
+        })

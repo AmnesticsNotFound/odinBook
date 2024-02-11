@@ -1,0 +1,37 @@
+html
+  block head
+    head
+      meta(charset='utf-8')
+      meta(name='viewport', content='width=device-width, initial-scale=1')
+      link(rel='stylesheet', href='/layout.css')
+      //link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css", integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N", crossorigin="anonymous")
+      //script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js", integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj", crossorigin="anonymous")
+      //script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js", integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+", crossorigin="anonymous")
+  div()
+      img(src="/odinBook.png" style="height:100px; width:100px;float:right;margin:0;" class="homeBut")
+  block content
+    div(class = "miniProfile")
+          div(class="profileGroup")
+              img(class="userImage" src=user.img)
+              div(class="usernameInbox")
+                a(href=`http://localhost:3000/users/profile/${user._id}`) #{user.username}
+                img(class="inbox" src="/mail.png" style="height:30px;width:30px;")
+          div(class="buttons")
+            form(method='GET' action='http://localhost:3000/posts/getCreatePost')
+                button.btn.btn-primary(type='submit') New Post
+            form(method='POST' action='/logout?_method=DELETE')
+                button.btn.btn-primary(type='submit') Logout
+            form(method='GET' action='http://localhost:3000/users/usersList')
+                button.btn.btn-primary(type='submit') Users List
+  script(type = "text/javascript").  
+    let homeBut = document.querySelector(".homeBut");
+    let inbox = document.querySelector(".inbox");
+    homeBut.addEventListener("click", () => {
+        window.location = "http://localhost:3000/homepage";
+    })
+    if(inbox) {
+    inbox.addEventListener("click", () => {
+        window.location = "http://localhost:3000/users/inbox";
+    })
+    }
+    

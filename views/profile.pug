@@ -1,0 +1,15 @@
+extends layout
+block append head 
+    link(rel='stylesheet', href='/profile.css')
+    link(rel='script', href='/postLoader.js')
+block append content
+    body
+        div(class="header")
+            img(src=user2.img style="" class="")
+            h1(style="text-decoration:underline;")=user2.username
+            h1="Posts"
+    script(src="/public/javascripts/postLoader.js")
+    script(type = "text/javascript").
+        let posts = !{JSON.stringify(posts)};
+        console.log(posts);
+        loadPosts(posts);

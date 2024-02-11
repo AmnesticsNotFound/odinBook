@@ -1,0 +1,41 @@
+
+
+.header {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.pageTitle{
+    width:fit-content;
+    text-decoration: underline;
+}
+
+.posts{
+    
+}
+
+.postMain {
+    display:flex;
+    gap:10px;
+    width:400px;
+    
+}
+
+.likesDiv {
+   display:flex;
+   flex-direction: column;
+   align-items:center;
+   justify-content: center;
+   padding:0px;
+}
+.likes {
+    
+    width:30px;
+    height:30px;
+    content:url("/thumbs.png");   
+}
+
+.likesDiv h3 {
+    
+    margin:0px;
+}

@@ -1,0 +1,40 @@
+.mainDiv {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ .reqButton {
+    width:25px;
+}
+
+.reqButton:hover {
+    cursor:pointer;
+}
+
+.follReqBox {
+    display:flex;
+    flex-direction:column;
+}
+
+.request {
+    display:flex;
+}
+
+.userInfoDiv {
+    display:flex;
+    align-items:flex-end;
+    
+}
+
+.userInfoDiv img {
+    width:75px;
+    height:75px; 
+}
+
+.request {
+    
+    display:flex;
+    align-items:flex-end;
+    gap:15px;
+}

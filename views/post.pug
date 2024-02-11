@@ -1,0 +1,52 @@
+extends layout
+block append head
+    link(rel='stylesheet', href='/post.css')
+block append content
+
+    body
+        div(class="centerPiece")
+            div(class="post")
+                
+                    form(method='POST' action=`http://localhost:3000/posts/createComment/${postInfo._id}` class="commentMaker")
+                        div.form-group
+                            input#password.form-control(type='text' style="width:500px;height:10vh;border-style:none;" placeholder='Enter Comment here' name='body' required='true')
+                            button.btn.btn-primary(type='submit' style='margin-top:10px;width:80px;') Submit
+            div(class="comments")
+                h2="Comments"
+        script(src="/public/javascripts/postLoader.js")
+        script( src= "https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js").
+        script(type = "text/javascript").
+            let postInfo = !{JSON.stringify(postInfo)};
+            let comments = !{JSON.stringify(comments)};
+            //console.log(postInfo._id);
+            loadPost(postInfo, comments);
+            let likes = document.querySelectorAll(".likes");
+            console.log(likes);
+
+            likes.forEach((like)=> {
+                
+                like.addEventListener("click", () => {
+                    //console.log(like.value)
+                    axios({
+                        method:"post",
+                        data: {
+                        //receiver:receiver,
+                        origin:"homepage",
+                        },
+                        withCredentials:false,
+                        url: `http://localhost:3000/posts/updateLikes/${like.value}`,
+                    }).then((res) => {
+                        console.log("success");
+                        location.reload();
+                    })
+                })
+            })
+
+            let profiles = document.querySelectorAll(".imgUsername");
+
+            profiles.forEach((profile) => {
+
+                profile.addEventListener("click", () => {
+                    console.log(profile.value);
+                })
+            })

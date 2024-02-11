@@ -1,0 +1,17 @@
+html
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='/createPost.css')
+    body
+        h1 Create Post
+
+        
+        form(method='POST' action='createPost' class="createForm")
+            div(class="textBoxes")
+                label(for='title' class="label1") Title:
+                input#username.form-control(type='text' placeholder='Title' name='title' required='true')
+            div(class="textBoxes" class="label2")
+                label(for='body') Body:
+                input#password.form-control(type='text' placeholder='Body' name='body' required='true')
+            button.btn.btn-primary(type='submit') Submit

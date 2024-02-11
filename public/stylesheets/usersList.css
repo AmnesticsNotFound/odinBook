@@ -1,0 +1,32 @@
+.centerDiv {
+    margin:auto;
+    width:fit-content;
+   
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.userDiv {
+    display:flex;
+    align-items: center;
+    
+    
+    
+}
+
+.userDiv img {
+    width:50px;
+    
+}
+
+.userDiv h3 {
+    
+    font-size: 30px;
+}
+
+.userDiv button {
+    
+    font-size: 30px;
+}

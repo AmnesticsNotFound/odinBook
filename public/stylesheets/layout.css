@@ -1,0 +1,50 @@
+.miniProfile {
+    display:flex;
+    
+    width:fit-content;
+    height:fit-content;
+    float:left;
+    
+}
+
+.buttons {
+    display:flex;
+    flex-direction:column;
+    
+    gap:0px;
+    
+}
+.miniProfile form {
+    margin:3px;
+}
+
+a {
+    font-size:2vh;
+    color:rgb(110, 110, 110);
+    text-decoration:none;
+}
+
+.userImage {
+    width:80px;
+    height:80px;
+}
+
+.inbox:hover {
+    cursor:pointer;
+}
+
+.homeBut:hover, button:hover{
+    cursor:pointer;
+}
+
+.homeBut:hover {
+    -webkit-transition: transform 2s ease-in-out;
+}
+
+.profileGroup {
+    display:flex;
+    flex-direction:column;
+}
+.usernameInbox {
+    display:flex;    
+}

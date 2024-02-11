@@ -1,0 +1,21 @@
+extends layout 
+block append head
+  link(rel='stylesheet', href='login.css') 
+block  content
+  body
+    
+    form(method='POST' action='/')
+      
+      h1(style="font-weight:bold;margin-top:10px;") Welcome, Please Login
+      div.form-group(style="display:flex;flex-direction:column;width:fit-content;")
+              
+        input#username.form-control(type='text' placeholder='Username' name='username' required='true' class="loginStuff")
+              
+        input#password.form-control(type='password' placeholder='Password' name='password' required='true' class="loginStuff")
+        button.btn.btn-primary(type='submit' class="button") Submit
+        a(href="/register" style="background-color:rgba(77, 255, 249, 0.481);border-radius:6px;width:fit-content;margin-top:5px;color:black;") Register
+        
+    if messages.error
+      ul
+        for error in messages.error
+          li= error
