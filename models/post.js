@@ -7,6 +7,7 @@ const PostSchema = new Schema({
     timestamp:{type:Date, default:Date.now()},
     body:{type:String, minLength:1, maxLength: 1000, required:true},
     title:{type:String, minLength:1, maxLength: 1000, required:true},
+    likesArray:{type:Array},
     likes:{type:Number},
 });
 

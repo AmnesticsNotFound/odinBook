@@ -1,3 +1,6 @@
+content{
+    border-style: solid;
+}
 .miniProfile {
     display:flex;
     
@@ -5,14 +8,27 @@
     height:fit-content;
     float:left;
     
+    
 }
 
 .buttons {
     display:flex;
     flex-direction:column;
-    
     gap:0px;
+    container-type: size;
     
+}
+
+.buttons button {
+    background-color: rgb(150, 150, 150);
+    border-color:rgb(105, 105, 105);
+    color:rgb(31, 128, 97);
+    border-radius: 5px;
+    height:2.5vh;
+    min-height:20px;
+    font-size:13px;
+    overflow: hidden;
+    aspect-ratio: 23/9;
 }
 .miniProfile form {
     margin:3px;
@@ -20,31 +36,34 @@
 
 a {
     font-size:2vh;
-    color:rgb(110, 110, 110);
+    color:rgb(30, 107, 53);
     text-decoration:none;
 }
 
 .userImage {
-    width:80px;
-    height:80px;
+    aspect-ratio:1;
+    width:10vh;
+    min-width: 50px;
+   
 }
 
-.inbox:hover {
+.homeBut:hover, button:hover, .inbox:hover{
     cursor:pointer;
 }
 
-.homeBut:hover, button:hover{
-    cursor:pointer;
+button:hover {
+    filter: brightness(85%);
 }
-
-.homeBut:hover {
-    -webkit-transition: transform 2s ease-in-out;
+.homeBut:hover, .inbox:hover, a:hover{
+    filter: opacity(20%);
 }
 
 .profileGroup {
-    display:flex;
-    flex-direction:column;
+   
+    margin:0px;
+    padding:0px;
 }
 .usernameInbox {
-    display:flex;    
+    display:flex;
+
 }

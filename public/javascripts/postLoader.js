@@ -1,17 +1,17 @@
 console.log("Everything is just peachy. postLoader has been...loaded");
 // loads all posts on homepage
-function loadPosts(posts) {
+function loadPosts(posts,user) {
     let body = document.querySelector(".header");
     for (let i = 0; i < posts.length; ++i) {
         let x = 5;
-        console.log(posts);
+        console.log(user._id);
         let postMain = document.createElement("div");
         postMain.classList.add("postMain");
         let post = document.createElement("div");
         post.classList.add("posts");
         let title = document.createElement("a");
         title.innerText = posts[i].title;
-        console.log(posts[i]._id);
+        //console.log(posts[i]._id);
         title.href=`http://localhost:3000/posts/${posts[i]._id}`
         let postBody = document.createElement("p");
 
@@ -22,6 +22,15 @@ function loadPosts(posts) {
         likesDiv.classList.add("likesDiv");
         likesCounter.innerText = posts[i].likes;
         likes.classList.add("likes");
+
+        if (posts[i].likesArray.includes(user._id)) {
+            console.log("user already liked");
+            likes.classList.add("blue");
+        }
+        else {
+            likes.classList.remove("blue");
+        }
+        
         postBody.innerText = posts[i].body;
 
         likesDiv.appendChild(likes);
@@ -48,20 +57,32 @@ function addPostListeners() {
     })
 }
 //loads post data for individual post pages
-function loadPost(postInfo, comments) {
+function loadPost(postInfo, comments, user) {
     let post = document.createElement("div");
     let postDiv = document.querySelector(".post");
     let title = document.createElement("h1");
     let postBody = document.createElement("p");
     postBody.classList.add("postBody");
-    let username = document.createElement("h3");
-
+    let userDiv = document.createElement("div");
+    userDiv.classList.add("userDiv");
+    let usernameText = document.createElement("h3");
+    let username = document.createElement("a");
     let likes = document.createElement("img");
     let likesCounter = document.createElement("h3");
     let likesDiv = document.createElement("div");
     likesDiv.classList.add("likesDiv");
     likesCounter.innerText = postInfo.likes;
     likes.classList.add("likes");
+
+    if (postInfo.likesArray.includes(user._id)) {
+        console.log("user already liked");
+        likes.classList.add("blue");
+    }
+    else {
+        likes.classList.remove("blue");
+    }
+    
+
     likes.value = postInfo._id;
     //post.classList.add("posts");
     
@@ -70,10 +91,14 @@ function loadPost(postInfo, comments) {
     //console.log(posts[i]._id)
     //title.href=`http://localhost:3000/posts/${posts[i]._id}`
     
-    username.innerText = "Posted by: " + postInfo.user.username;
+    usernameText.innerText = "Posted by: ";
+    username.innerText = postInfo.user.username;
+    username.href = `http://localhost:3000/users/profile/${postInfo.user._id}`;
     postBody.innerText = postInfo.body;
     post.appendChild(title);
-    post.append(username);
+    userDiv.append(usernameText);
+    userDiv.append(username);
+    post.append(userDiv);
     post.appendChild(postBody);
     likesDiv.appendChild(likes);
     likesDiv.appendChild(likesCounter);

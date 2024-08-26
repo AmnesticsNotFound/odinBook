@@ -5,13 +5,14 @@ html
         link(rel='stylesheet', href='/createPost.css')
     body
         h1 Create Post
+        p (Do keep it somehwat interesting)
 
         
         form(method='POST' action='createPost' class="createForm")
-            div(class="textBoxes")
+            div(class="textBox1")
                 label(for='title' class="label1") Title:
                 input#username.form-control(type='text' placeholder='Title' name='title' required='true')
-            div(class="textBoxes" class="label2")
-                label(for='body') Body:
-                input#password.form-control(type='text' placeholder='Body' name='body' required='true')
+            div(class="textBox2" )
+                label(for='body' class="label2") Body:
+                textarea#password.form-control(type='text' placeholder='Body' name='body' required='true')
             button.btn.btn-primary(type='submit') Submit

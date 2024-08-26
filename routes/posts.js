@@ -22,7 +22,10 @@ router.post('/createComment/:postId',checkAuth, postController.createComment)
 
 router.post('/updateLikes/:likesID',checkAuth, postController.updateLikes)
 
+router.get('/getAllPosts', checkAuth, postController.getAllPosts);
 //Order matters, put the 
 router.get('/:id', checkAuth, postController.getPost);
+
+
 
 module.exports = router;

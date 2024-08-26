@@ -6,6 +6,7 @@
     border-radius:5px;
     padding:0px;
     margin:3px;
+    word-wrap: break-word;
 }
 
 .solid{
@@ -13,7 +14,10 @@
     margin:0px;
     
 }
-
+.userDiv {
+    display: flex;
+    align-items: center;
+}
 .commentUserImage{
     width:40px;
     height:40px;
@@ -28,6 +32,7 @@
 }
 .username {
     font-weight: bold;
+    color:rgb(31, 128, 97);
 }
 
 .timestamp {
@@ -66,4 +71,9 @@
 .imgUsername {
     display:flex;
     flex-direction:row;
+}
+.blue {
+    border-style:solid;
+    border-radius: 30px;
+    border-color:rgb(0, 255, 0);
 }

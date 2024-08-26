@@ -6,7 +6,8 @@ const { body, validationResult } = require("express-validator");
 
 
 exports.getUser = async(req, res, next) => {
-    let posts = await Post.findOne().populate("user").find({ user:req.params.userID}).sort({id:1}).exec();
+  console.log(req.params.userID)
+    let posts = await Post.find().populate("user").find({ user:req.params.userID}).sort({id:1}).exec();
     let user2 = await User.findOne({_id: req.params.userID}).exec();
     
     res.render('profile', {

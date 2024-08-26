@@ -1,7 +1,8 @@
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
-
+//old mongo db
+//mongodb+srv://admin:admin@cluster0.trkhhy6.mongodb.net/odinBook?retryWrites=true&w=majority
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -106,11 +107,10 @@ app.get('/', checkAuthLogin, async(req, res, next) => {
 });
 
 app.get('/homepage', checkAuth, async(req, res, next) => {
-  console.log(req.user);
-  let posts = await Post.find().populate("user").sort({id:1}).exec();
+  //console.log(req.user);
+  let posts = await Post.find().populate("user").sort({likes:1}).exec();
     res.render('homepage.pug', {
       user:req.user,
-      posts: posts,
     });
 
   
@@ -133,13 +133,13 @@ app.post('/', passport.authenticate('local', {
 app.post("/register", upload.single("file"), async(req, res) => {
   
   //let imageAdd = "/home/adrian/Downloads/" + req.body.img;
-  console.log(req.file);
+  //console.log(req.file);
   const tempPath = req.file.path;
   const targetPath = `/home/adrian/OdinStuff/Node/OdinBook/public/images/${req.file.originalname}`;
   if (req.file.mimetype !== "image/png" && req.file.mimetype !== "image/jpeg") {
     fs.unlink(tempPath, (err) => {
       if (err) throw err //handle your error the way you want to;
-      console.log('File was deleted');//or else the file will be deleted
+      //console.log('File was deleted');//or else the file will be deleted
         });
     res.render("register",{
       error: "Image must be a .png or .jpg"
@@ -163,17 +163,45 @@ app.post("/register", upload.single("file"), async(req, res) => {
   });
   console.log(imageAdd);*/
 try {
+  
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = new User({
+    const users = await User.find().sort({id:1}).exec();
+    if (users.length == 0) {
+      const user = new User({
       username: req.body.username,
       password:hashedPassword,
       followList:[],
       img:"/" + req.file.originalname,
     });
-    //user.save();
+    console.log(user);
+    user.save();
     res.redirect('/');
-  } catch {
-  res.redirect("/register");
+    }
+  else {
+    for(let i = 0; i < users.length; ++i) {
+        if(users[i].username == req.body.username) {
+          res.render("register", {error:"Error:Username already in use"});
+          break;
+        }
+        if(i == users.length - 1 && users[i].username != req.body.username) {
+            const user = new User({
+              username: req.body.username,
+              password:hashedPassword,
+              followList:[],
+              img:"/" + req.file.originalname,
+          });
+          console.log(user);
+          user.save();
+          res.redirect('/');
+        }
+      }
+      
+    
+  }
+ } catch {
+  res.render("register",{
+      error: "Backend Error. Try again."
+    });
 }
   }
 //console.log(users);

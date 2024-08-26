@@ -16,6 +16,16 @@ exports.getPost = async(req,res,next) => {
     });
 }
 
+exports.getAllPosts = async(req,res,next) => {  
+    //console.log("I think we got it");
+    let posts = await Post.find().populate("user").sort({id:1}).exec();
+    //let comments = await Comment.find().populate("user").populate("post").find({ post:req.params.id }).sort({_id:1}).exec();
+    res.send({
+        //user:req.user,
+        posts:posts,
+    });
+}
+
 // eslint-disable-next-line no-undef
 exports.getCreatePost = async(req,res,next) => {
     res.render("create");
@@ -52,10 +62,7 @@ exports.createPost = [
             await newPost.save();
             console.log("Post Made");
             let posts = await Post.find().populate("user").sort({id:1}).exec();
-            res.render("homepage", {
-                user:req.user,
-                posts: posts,
-            });
+            res.redirect("/homepage");
         }
     }
 
@@ -89,10 +96,7 @@ exports.createComment = [
             await newComment.save();
             console.log("Post Made");
             let posts = await Post.find().populate("user").sort({id:1}).exec();
-            res.render("homepage", {
-                user:req.user,
-                posts: posts,
-            });
+            res.redirect(`http://localhost:3000/posts/${req.params.postId}`);
         }
     }
 
@@ -100,22 +104,39 @@ exports.createComment = [
 
 exports.updateLikes = async(req,res,next) => {
     //console.log(req.body.origin)
-    let post = await Post.findOne({ _id: req.params.likesID }); 
-    post.likes = post.likes + 1;
-    await post.save();
-   // res.send("good");
-   //console.log("gg");
-    
-    if (req.body.origin != null) {
-        
-        let posts = await Post.find().populate("user").sort({id:1}).exec();
-        console.log(req.body.origin);
-        res.render(req.body.origin, {
+    let post = await Post.findOne({ _id: req.params.likesID });
+    //console.log(req.user.id);
+    if (post.likesArray.includes(req.user.id)) {
+        console.log(post.likesArray);
+        post.likes = post.likes - 1;
+        let index = post.likesArray.indexOf(req.user.id);
+        post.likesArray.splice(index,1);
+        post.save();
+        console.log(post.likesArray);
+        res.send({
             user:req.user,
-            posts: posts,
+            msg:"failure",
         });
     }
     else {
-        console.log("Render Page must be provided, check postController");
-    }
+        console.log("user liked");
+        post.likes = post.likes + 1;
+        post.likesArray.push(req.user.id);
+        await post.save();
+    // res.send("good");
+    //console.log("gg");
+        
+        if (req.body.origin != null) {
+            
+            let posts = await Post.find().populate("user").sort({id:1}).exec();
+            
+            res.send({
+                user:req.user,
+                msg:"success",
+            });
+        }
+        else {
+            console.log("Render Page must be provided, check postController");
+        }
+}
 }

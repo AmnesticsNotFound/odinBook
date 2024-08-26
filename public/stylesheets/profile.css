@@ -1,4 +1,7 @@
-
+.userImg {
+    aspect-ratio: 4/3;
+    width:30vw;
+}
 .header {
     display:flex;
     flex-direction:column;

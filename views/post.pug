@@ -9,7 +9,7 @@ block append content
                 
                     form(method='POST' action=`http://localhost:3000/posts/createComment/${postInfo._id}` class="commentMaker")
                         div.form-group
-                            input#password.form-control(type='text' style="width:500px;height:10vh;border-style:none;" placeholder='Enter Comment here' name='body' required='true')
+                            textarea#password.form-control(style="width:500px;height:10vh;border-style:none;word-wrap:break-word;" placeholder='Enter Comment here' name='body' required='true')
                             button.btn.btn-primary(type='submit' style='margin-top:10px;width:80px;') Submit
             div(class="comments")
                 h2="Comments"
@@ -18,8 +18,9 @@ block append content
         script(type = "text/javascript").
             let postInfo = !{JSON.stringify(postInfo)};
             let comments = !{JSON.stringify(comments)};
+            let user = !{JSON.stringify(user)};
             //console.log(postInfo._id);
-            loadPost(postInfo, comments);
+            loadPost(postInfo, comments, user);
             let likes = document.querySelectorAll(".likes");
             console.log(likes);
 
@@ -36,7 +37,7 @@ block append content
                         withCredentials:false,
                         url: `http://localhost:3000/posts/updateLikes/${like.value}`,
                     }).then((res) => {
-                        console.log("success");
+                        //console.log("success");
                         location.reload();
                     })
                 })

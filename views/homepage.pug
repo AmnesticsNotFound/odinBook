@@ -13,14 +13,25 @@ block append content
         script(src="/public/javascripts/postLoader.js")
         script( src= "https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js").
         script(type = "text/javascript").
-            let posts = !{JSON.stringify(posts)};
-            loadPosts(posts);
-            addPostListeners();
+            let user = !{JSON.stringify(user)};
+            console.log(user);
+             axios({
+                        method:"get",
+                        data: {
+                        //receiver:receiver,
+                        origin:"homepage",
+                        },
+                        withCredentials:false,
+                        url: `http://localhost:3000/posts/getAllPosts`,
+                    }).then((res) => {
+                        //console.log(res.data.posts);
+                        loadPosts(res.data.posts, user);
+                        addPostListeners();
             let likes = document.querySelectorAll(".likes");
-            console.log(likes);
+            
 
             likes.forEach((like)=> {
-                
+                //console.log("yup");
                 like.addEventListener("click", () => {
                     //console.log(like.value)
                     axios({
@@ -32,9 +43,18 @@ block append content
                         withCredentials:false,
                         url: `http://localhost:3000/posts/updateLikes/${like.value}`,
                     }).then((res) => {
-                        console.log("success");
+                        console.log(res.data.msg);
                         location.reload();
+                        if (res.data.msg == "success") {
+                            
+                        }
                     })
                 })
             })
+                    })
+                    
+            //og way of getting posts
+            //let posts = !{JSON.stringify(posts)};
+            //loadPosts(posts);
+            
 

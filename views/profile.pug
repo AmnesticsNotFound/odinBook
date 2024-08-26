@@ -5,11 +5,12 @@ block append head
 block append content
     body
         div(class="header")
-            img(src=user2.img style="" class="")
+            img(src=user2.img style="" class="userImg")
             h1(style="text-decoration:underline;")=user2.username
             h1="Posts"
     script(src="/public/javascripts/postLoader.js")
     script(type = "text/javascript").
         let posts = !{JSON.stringify(posts)};
+        let user2 = !{JSON.stringify(user2)};
         console.log(posts);
-        loadPosts(posts);
+        loadPosts(posts,user2);
