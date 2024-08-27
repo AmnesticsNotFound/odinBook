@@ -20,6 +20,7 @@ const methodOverride = require('method-override');
 //const { cookie } = require('express-validator');
 const User = require("./models/user");
 const Post = require("./models/post");
+dotenv.config();
 const mongoDb = process.env.MONGODB_URL;
 const bcrypt = require("bcrypt");
 
@@ -36,6 +37,7 @@ const upload = multer({
   dest: "/home/adrian/OdinStuff/Node/OdinBook/public/uploads"
   // you might also want to set some limits: https://github.com/expressjs/multer#limits
 });
+
 mongoose.connect(mongoDb, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
@@ -65,7 +67,7 @@ var postsRouter = require('./routes/posts');
 var usersRouter = require('./routes/users');
 
 var app = express();
-dotenv.config();
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
