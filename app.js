@@ -1,8 +1,10 @@
-if (process.env.NODE_ENV !== 'production') {
+/*if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
-}
+}*/
 //old mongo db
 //mongodb+srv://admin:admin@cluster0.trkhhy6.mongodb.net/odinBook?retryWrites=true&w=majority
+const dotenv = require('dotenv');
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -63,7 +65,7 @@ var postsRouter = require('./routes/posts');
 var usersRouter = require('./routes/users');
 
 var app = express();
-
+dotenv.config();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
