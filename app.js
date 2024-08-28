@@ -3,8 +3,8 @@
 }*/
 //old mongo db
 //mongodb+srv://admin:admin@cluster0.trkhhy6.mongodb.net/odinBook?retryWrites=true&w=majority
-const dotenv = require('dotenv');
-const serverless = require("serverless-http");
+const dotenv = require('dotenv'); 
+//const serverless = require("serverless-http");
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -18,8 +18,8 @@ const flash = require('express-flash');
 const session = require("express-session");
 const methodOverride = require('method-override');
 //const { cookie } = require('express-validator');
-const User = require("../../models/user");
-const Post = require("../../models/post");
+const User = require("./models/user");
+const Post = require("./models/post");
 dotenv.config();
 const mongoDb = process.env.MONGODB_URL;
 const bcrypt = require("bcrypt");
@@ -44,7 +44,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
 
 
-const initializePassport = require('../../passport-config');
+const initializePassport = require('./passport-config');
 initializePassport(passport,
   async(username) => {
    let users = await User.find().populate("followList").sort({id:1}).exec();
@@ -63,9 +63,9 @@ function getRandomInt(max) {
 }
 
 
-var indexRouter = require('../../routes/index');
-var postsRouter = require('../../routes/posts');
-var usersRouter = require('../../routes/users');
+var indexRouter = require('./routes/index');
+var postsRouter = require('./routes/posts');
+var usersRouter = require('./routes/users');
 
 
 
@@ -261,4 +261,4 @@ app.use(function(err, req, res, next) {
 });
 
 //export const handler = serverless(app);
-module.exports = serverless(app);
+module.exports = app;
