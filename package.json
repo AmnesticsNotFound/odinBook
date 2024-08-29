@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
     "serverstart": "DEBUG=odinbook:* npm run devstart",
-    "build": "webpack"
+    "build": "webpack",
+    "prod": "node dist/index.js"
   },
   "dependencies": {
     "aws-sdk": "^2.1685.0",
